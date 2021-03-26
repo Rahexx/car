@@ -1,6 +1,7 @@
-CarBody.java
- CarBody
 Chassis.java
  Chassis
 Car.java
  Car
+CarBody.java
+ CarBody
+ CarBody$TypeBody
