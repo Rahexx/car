@@ -1,4 +1,4 @@
-public class Car {
+public class Car implements StartEngine{
     private Chassis chassis;
     private CarBody carbody;
     private Engine engine;
@@ -27,6 +27,27 @@ public class Car {
 
     public Engine getEngine(){ return  engine; }
 
+    @Override
+    public String start(String type) {
+        String openInfo;
+
+        switch(type){
+            case "key":
+                openInfo = "Kluczyk";
+                break;
+            case "insertCard":
+                openInfo = "start/stop + karta wsuwana";
+                break;
+            case "cardNearby":
+                openInfo = "start/stop+ karta w poblizu";
+                break;
+            default:
+                openInfo = "Błędny typ";
+        }
+
+        return openInfo;
+    }
+
     public static void main(String[] args){
         Car car = new Car(new Chassis(true), new CarBody("SUV"), new Engine("1.4"),"honda", "civic", "silver");
 
@@ -34,5 +55,6 @@ public class Car {
         System.out.println(car.getChassis().getChassis());
         System.out.println(car.getCarBody().getType());
         System.out.println(car.getEngine().getPower());
+        System.out.println(car.start("key"));
     }
 }
