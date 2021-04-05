@@ -1,4 +1,5 @@
 public class Car implements StartEngine{
+    private CarEquipment carEquipment;
     private Chassis chassis;
     private CarBody carbody;
     private Engine engine;
@@ -6,13 +7,14 @@ public class Car implements StartEngine{
     private String model;
     private String colour;
 
-    public Car(Chassis chassis,CarBody carbody, Engine engine, String firm, String model, String colour) {
+    public Car(CarEquipment carEquipment,Chassis chassis,CarBody carbody, Engine engine, String firm, String model, String colour) {
         this.firm = firm;
         this.model = model;
         this.colour = colour;
         this.chassis = chassis;
         this.carbody = carbody;
         this.engine = engine;
+        this.carEquipment = carEquipment;
     }
 
     public String getModel(){
@@ -26,6 +28,8 @@ public class Car implements StartEngine{
     public CarBody getCarBody(){ return carbody;}
 
     public Engine getEngine(){ return  engine; }
+
+    public CarEquipment getCarEquipment(){ return carEquipment;}
 
     @Override
     public String start(String type) {
@@ -47,14 +51,31 @@ public class Car implements StartEngine{
 
         return openInfo;
     }
-
+    
+    @Override
+    public String toString(){
+        String text = "";
+        
+        for(int i=0; i<this.carEquipment.extraEquipment.length; i++){
+            text += " " + this.carEquipment.extraEquipment[i];
+        }
+        
+        return text;
+    }
+    
     public static void main(String[] args){
-        Car car = new Car(new Chassis(true), new CarBody("SUV"), new Engine("1.4"),"honda", "civic", "silver");
+        Car car = new Car(["abs", "wspomaganie"] {
+            @Override
+            public String showElements() {
+                return this.toString();
+            }
+        },new Chassis(true), new CarBody("SUV"), new Engine("1.4"),"honda", "civic", "silver");
 
         System.out.println(car.getModel());
         System.out.println(car.getChassis().getChassis());
         System.out.println(car.getCarBody().getType());
         System.out.println(car.getEngine().getPower());
         System.out.println(car.start("key"));
+        System.out.println(car.getCarEquipment().showElements());
     }
 }
